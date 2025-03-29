@@ -1,88 +1,97 @@
-let btn = document.querySelectorAll(".btn")
-let resetBtn = document.querySelector("#reset");
-let newGameButton =  document.querySelector(".newGame");
-let msg = document.querySelector(".msg");
-let draw = document.querySelector(".draw-msg");
-let turnX = true;
-let winner = "";
-
-let winPats=[
-    [0,1,2],// hor
-    [3,4,5],// hor
-    [6,7,8],// hor
-    [0,3,6],// ver
-    [1,4,7],// ver
-    [2,5,8],// ver
-    [0,4,8],// dia
-    [2,4,6],// dia
-]
-let count = 0;
-btn.forEach((btn)=>{
-
-    btn.addEventListener("click", ()=>{
-        if(turnX){
-            btn.innerText = "X";
-            turnX = false;
-        } else {
-            btn.innerText = "O";
-            turnX = true;
-        }
-        btn.disabled = true;
-        count+=1;
-        if(checkWinner()){
-            btn.disabled = true;
-            msg.classList.remove("hide");
-            newGameButton.classList.remove("hide");
-            msg.innerText =`Congratulations! Winner is ${winner}`;
-
-        }
-        if(count===9 && winner=="" ){
-            draw.classList.remove("hide");
-            newGameButton.classList.remove("hide");
-            draw.innerText = "-Match Draw-";
-            count = 0;
-        }
-        winner=""
-    })
-})
-
-const disableButtons = () =>
-{
-    for (let btns of btn){
-        btns.disabled=true;
-    }
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.msg,.draw-msg {
+    color :wheat;
+    font-size: 2em;
+    font-weight: 2em;
 }
 
-const checkWinner = () =>{
-    for(pat of winPats){
-       if (btn[pat[0]].innerText!="" && btn[pat[1]].innerText!="" && btn[pat[2]].innerText!="")
-       {
-        if(btn[pat[0]].innerText===btn[pat[1]].innerText && btn[pat[1]].innerText===btn[pat[2]].innerText){
-            disableButtons();
-            winner=btn[pat[1]].innerText ;
-            return true;
-        }
-       }
-    }
+body{
+    background-image: url(image.avif) ;
+    background-size: 200%;
+    background-repeat: no-repeat;
+    text-align: center;
 }
 
-const enableButtons = () =>
-{
-    for (let btns of btn){
-        btns.disabled=false;
-        btns.innerText="";
-    }
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-const reset = () =>
-{
-    turnX=true; 
-    msg.classList.add("hide");
-    enableButtons();
-    newGameButton.classList.add("hide");
-    draw.classList.add("hide");
-    count=0;
-};
+h1 {
+    margin: 10px;
+    padding: 10px;
+    color: wheat;
+}
 
-resetBtn.addEventListener("click",reset);
-newGameButton.addEventListener("click",reset);
+.parent {
+    height: 70vh;
+    width: 70vmin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    border:1px solid white;
+    border-radius: 20px;
+}
+
+.btn {
+    background:linear-gradient(to bottom right,#414833,#364958);
+    border: none;
+    border-radius: 30px;
+    height: 18vmin;
+    width: 18vmin;
+    margin: 10px;
+    transition: transform 0.2s ease-in-out;
+    font-size: 4em;
+    font-weight: 4em;
+    color: white    ;
+}
+.btn:hover {
+    transition-timing-function: linear;
+    transform:scale(1.1);
+    transition: transform 0.2s;
+}
+
+#reset {
+    background-color: black;
+    margin:1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid white;
+}
+#reset:hover {
+    background-color:rgb(48, 44, 44);
+    transform:scale(1.2);
+    transition: transform 0.2s;
+}   
+
+.newGame {
+    background-color: black;
+    margin:1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid white; 
+}
+
+.hide{
+    display: none; 
+}
+
+.newGame:hover {
+    background-color:rgb(48, 44, 44);
+    transform:scale(1.2);
+    transition: transform 0.2s;
+}   
